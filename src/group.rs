@@ -1,5 +1,6 @@
 pub mod abelian;
 pub mod symmetric;
+pub mod alternating;
 
 pub trait Group<G: ?Sized> {
     // Associative group operation G x G -> G

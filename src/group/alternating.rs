@@ -3,11 +3,11 @@ use crate::util::permutation;
 use crate::util::permutation::Permutation;
 use super::Group;
 
-pub struct SymmetricGroup<const N: usize> {
+pub struct AlternatingGroup<const N: usize> {
     iterator: permutation::IterablePermutation<N>
 }
 
-impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
+impl<const N: usize> Group<Permutation<N>> for AlternatingGroup<N> {
 
     fn op(&self, a: Permutation<N>, b: Permutation<N>) -> Permutation<N> {
         return permutation::compose(a, b);
@@ -22,18 +22,21 @@ impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
     }
 
     fn next(&mut self) -> Permutation<N> {
+        if !self.iterator.is_even() {
+            self.iterator.next();
+        }
         return self.iterator.next();
     }
 
     fn order(&self) -> u32 {
-        return util::factorial(N as u32);
+        return util::factorial(N as u32) / 2;
     }
 }
 
-impl<'a, const N: usize> SymmetricGroup<N> {
+impl<'a, const N: usize> AlternatingGroup<N> {
     
     pub fn new() -> Self {
-        return SymmetricGroup {
+        return AlternatingGroup {
             iterator: permutation::IterablePermutation::new()
         }
     }

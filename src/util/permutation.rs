@@ -7,7 +7,8 @@ pub type Permutation<const N: usize> = [usize;N];
 
 pub struct IterablePermutation<const N: usize> {
     s: Permutation<N>,
-    directions: [i8; N]
+    directions: [i8; N],
+    is_even: bool
 }
 
 impl<const N: usize> IterablePermutation<N> {
@@ -16,7 +17,8 @@ impl<const N: usize> IterablePermutation<N> {
         directions[0] = 0;
         return IterablePermutation {
             s: arange(),
-            directions
+            directions,
+            is_even: true
         }
     }
 
@@ -61,7 +63,13 @@ impl<const N: usize> IterablePermutation<N> {
             self.s = arange();
         }
 
+        self.is_even = !self.is_even;
+
         return permutation_to_return;
+    }
+
+    pub fn is_even(&self) -> bool {
+        return self.is_even;
     }
 }
 
