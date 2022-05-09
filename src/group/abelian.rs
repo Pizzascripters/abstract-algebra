@@ -39,12 +39,20 @@ impl<'a> Group<u32> for AbelianGroup<'a> {
         return ab;
     }
 
+    fn identity(&self) -> u32 {
+        return 1;
+    }
+
     fn inv(&self, g: u32) -> u32 {
         return g;
     }
 
     fn order(&self) -> u32 {
         return self.order;
+    }
+
+    fn next(&mut self) -> u32 {
+        return 0; // STUB
     }
 }
 

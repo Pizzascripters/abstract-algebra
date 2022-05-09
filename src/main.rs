@@ -12,6 +12,9 @@ fn main() {
     let z20 = AbelianGroup::new(&subgroups);
     println!("{}", z20.op(1, 5));
 
-    let s5: SymmetricGroup<5> = SymmetricGroup::new();
-    println!("{}", s5.order());
+    let mut s5: SymmetricGroup<5> = SymmetricGroup::new();
+    for _ in 0..s5.order() {
+        let g = s5.next();
+        println!("({}, {}, {}, {}, {})", g[0], g[1], g[2], g[3], g[4]);
+    }
 }
