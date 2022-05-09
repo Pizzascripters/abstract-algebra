@@ -51,6 +51,8 @@ impl<'a> Group<u32> for AbelianGroup<'a> {
         return self.order;
     }
 
+    fn reset(&mut self) {}
+
     fn next(&mut self) -> u32 {
         return 0; // STUB
     }

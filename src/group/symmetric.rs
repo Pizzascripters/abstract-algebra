@@ -21,6 +21,10 @@ impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
         return permutation::invert(g);
     }
 
+    fn reset(&mut self) {
+        self.iterator = permutation::IterablePermutation::new();
+    }
+
     fn next(&mut self) -> Permutation<N> {
         return self.iterator.next();
     }

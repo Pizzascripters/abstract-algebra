@@ -30,6 +30,8 @@ fn main() {
         print!(" - ");
     }
     print!("\n");
+
+    print_permutation_4(s4.conjugate([3, 2, 1, 0], [1, 3, 2, 0]));
 }
 
 fn print_permutation_4(g: [usize; 4]) {
