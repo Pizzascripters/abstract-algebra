@@ -9,6 +9,7 @@ pub struct AbelianGroup<'a> {
 }
 
 impl<'a> AbelianGroup<'a> {
+    
     pub fn new(subgroups: &'a HashMap<u32, u8>) -> Self {
         let mut order = 1;
         for (subgroup_order, multiplicity) in subgroups {
@@ -23,6 +24,7 @@ impl<'a> AbelianGroup<'a> {
 }
 
 impl<'a> Group<u32> for AbelianGroup<'a> {
+
     fn op(&self, mut a: u32, mut b: u32) -> u32 {
         let mut ab = 0;
         let mut x = 1;
@@ -40,18 +42,22 @@ impl<'a> Group<u32> for AbelianGroup<'a> {
     fn inv(&self, g: u32) -> u32 {
         return g;
     }
+
+    fn order(&self) -> u32 {
+        return self.order;
+    }
 }
 
-// Chinese remainder theorem
-fn crt(remainders: &[u32], primes: &[u32], powers: &[u32]) -> u32 {
-    let mut M = 1;
-    for i in 0..primes.len() {
-        M *= primes[i].pow(powers[i]);
-    }
-    let mut n = 0;
-    for i in 0..primes.len() {
-        let m = primes[i].pow(powers[i]);
-        let x = M / m;
-    }
-    return 1;
-}
+// // Chinese remainder theorem
+// fn crt(remainders: &[u32], primes: &[u32], powers: &[u32]) -> u32 {
+//     let mut M = 1;
+//     for i in 0..primes.len() {
+//         M *= primes[i].pow(powers[i]);
+//     }
+//     let mut n = 0;
+//     for i in 0..primes.len() {
+//         let m = primes[i].pow(powers[i]);
+//         let x = M / m;
+//     }
+//     return 1;
+// }

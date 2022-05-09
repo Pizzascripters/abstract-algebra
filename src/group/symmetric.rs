@@ -1,3 +1,4 @@
+use crate::util::factorial;
 use super::Group;
 
 // If s is a permutation then for any i in 0..N there should exist a j such that s[j] = i
@@ -5,6 +6,13 @@ use super::Group;
 type Permutation<const N: usize> = [usize;N];
 
 pub struct SymmetricGroup<const N: usize> {}
+
+impl<const N: usize> SymmetricGroup<N> {
+    
+    pub fn new() -> Self {
+        return SymmetricGroup {}
+    }
+}
 
 impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
 
@@ -23,5 +31,9 @@ impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
             g_inv[g[i]] = i;
         }
         return g_inv;
+    }
+
+    fn order(&self) -> u32 {
+        return factorial(N as u32);
     }
 }
