@@ -23,7 +23,7 @@ impl<'a> AbelianGroup<'a> {
     }
 }
 
-impl<'a> Group<u32> for AbelianGroup<'a> {
+impl<'a> Group<'a, u32> for AbelianGroup<'a> {
 
     fn op(&self, mut a: u32, mut b: u32) -> u32 {
         let mut ab = 0;
@@ -46,15 +46,14 @@ impl<'a> Group<u32> for AbelianGroup<'a> {
     fn inv(&self, g: u32) -> u32 {
         return g;
     }
+}
 
-    fn order(&self) -> u32 {
-        return self.order;
-    }
+impl<'a> Iterator for AbelianGroup<'a> {
 
-    fn reset(&mut self) {}
+    type Item=u32;
 
-    fn next(&mut self) -> u32 {
-        return 0; // STUB
+    fn next(&mut self) -> Option<u32> {
+        return None;
     }
 }
 

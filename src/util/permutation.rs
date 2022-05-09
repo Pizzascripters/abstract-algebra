@@ -8,22 +8,41 @@ pub type Permutation<const N: usize> = [usize;N];
 pub struct IterablePermutation<const N: usize> {
     s: Permutation<N>,
     directions: [i8; N],
-    is_even: bool
+    even_only: bool,
+    is_even: bool,
+    done: bool
+}
+
+impl<const N: usize> Iterator for IterablePermutation<N> {
+    type Item = Permutation<N>;
+
+    // Steinhaus–Johnson–Trotter algorithm with Even's speedup
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.even_only && !self.is_even {
+            self.advance();
+        }
+        return self.advance();
+    }
 }
 
 impl<const N: usize> IterablePermutation<N> {
-    pub fn new() -> Self {
+    pub fn new(even_only: bool) -> Self {
         let mut directions: [i8; N] = [-1; N];
         directions[0] = 0;
         return IterablePermutation {
             s: arange(),
             directions,
-            is_even: true
+            even_only,
+            is_even: true,
+            done: false
         }
     }
 
-    // Steinhaus–Johnson–Trotter algorithm with Even's speedup
-    pub fn next(&mut self) -> Permutation<N> {
+    pub fn advance(&mut self) -> Option<Permutation<N>> {
+        if self.done {
+            return Option::None;
+        }
+
         let permutation_to_return = self.s;
 
         let mut k: usize = 0; // Index of greatest nonzero element
@@ -60,16 +79,13 @@ impl<const N: usize> IterablePermutation<N> {
         }
 
         if permutation_to_return == self.s {
-            self.s = arange();
+            self.done = true;
+            return Option::None;
         }
 
         self.is_even = !self.is_even;
 
-        return permutation_to_return;
-    }
-
-    pub fn is_even(&self) -> bool {
-        return self.is_even;
+        return Some(permutation_to_return);
     }
 }
 

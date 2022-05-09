@@ -7,7 +7,7 @@ pub struct SymmetricGroup<const N: usize> {
     iterator: permutation::IterablePermutation<N>
 }
 
-impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
+impl<'a, const N: usize> Group<'a, Permutation<N>> for SymmetricGroup<N> {
 
     fn op(&self, a: Permutation<N>, b: Permutation<N>) -> Permutation<N> {
         return permutation::compose(a, b);
@@ -20,25 +20,23 @@ impl<const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
     fn inv(&self, g: Permutation<N>) -> Permutation<N> {
         return permutation::invert(g);
     }
+}
 
-    fn reset(&mut self) {
-        self.iterator = permutation::IterablePermutation::new();
-    }
+impl<const N: usize> Iterator for SymmetricGroup<N> {
 
-    fn next(&mut self) -> Permutation<N> {
+    type Item = Permutation<N>;
+
+    fn next(&mut self) -> Option<Permutation<N>> {
         return self.iterator.next();
-    }
-
-    fn order(&self) -> u32 {
-        return util::factorial(N as u32);
     }
 }
 
-impl<'a, const N: usize> SymmetricGroup<N> {
+impl<const N: usize> SymmetricGroup<N> {
     
     pub fn new() -> Self {
+        let iterator = permutation::IterablePermutation::new(false);
         return SymmetricGroup {
-            iterator: permutation::IterablePermutation::new()
+            iterator
         }
     }
 }
