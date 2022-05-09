@@ -1,4 +1,5 @@
 mod group;
+mod action;
 mod util;
 
 use std::collections::HashMap;
@@ -7,6 +8,9 @@ use group::Group;
 use group::symmetric::SymmetricGroup;
 use group::abelian::AbelianGroup;
 use group::alternating::AlternatingGroup;
+use action::Action;
+use action::conjugate::Conjugate;
+use util::permutation;
 
 fn main() {
     let subgroups: HashMap<u32, u8> = HashMap::from([(5, 1), (4, 1)]);
@@ -31,7 +35,8 @@ fn main() {
     }
     print!("\n");
 
-    print_permutation_4(s4.conjugate([3, 2, 1, 0], [1, 3, 2, 0]));
+    let action: Conjugate<permutation::Permutation<4>> = Conjugate::new(&mut s4);
+    print_permutation_4(action.op([3, 2, 1, 0], [1, 3, 2, 0]));
 }
 
 fn print_permutation_4(g: [usize; 4]) {
