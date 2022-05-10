@@ -27,17 +27,36 @@ fn main() {
     print!("\n\n");
 
     println!("Orbit of [3, 2, 1, 0] in S4 acting on itself under conjugation:");
-    let action: Conjugate<Permutation<4>> = Conjugate::new(&mut s4);
-    let orbit = action::orbit(&mut SymmetricGroup::new(), &action, [0, 3, 2, 1]);
+    let action: Conjugate<Permutation<4>> = Conjugate::new(&s4);
+    let orbit = action::orbit(&SymmetricGroup::new(), &action, [0, 3, 2, 1]);
     for s in orbit {
         print_permutation_4(s);
         print!(" - ");
     }
     print!("\n\n");
+
+    println!("Center of S4:");
+    let center = group::find_center(&s4);
+    for g in center {
+        print_permutation_4(g);
+        print!(" - ");
+    }
+    print!("\n\n");
+
+    println!("Conjugacy classes of A4:");
+    let classes = group::find_conjugacy_classes(&a4);
+    for class in classes {
+        for s in class {
+            print_permutation_4(s);
+            print!(" - ");
+        }
+        print!("\n");
+    }
+    print!("\n");
 }
 
 fn print_permutation_group(grp: &mut dyn Group<Permutation<4>>) {
-    for i in 1..grp.order() {
+    for i in 0..grp.order() {
         let g = grp[i];
         print_permutation_4(g);
         print!(" - ");

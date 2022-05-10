@@ -24,7 +24,7 @@ impl<'a, const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
     }
 
     fn order(&self) -> usize {
-        return factorial(N as u32) as usize / 2;
+        return factorial(N as u32) as usize;
     }
 }
 

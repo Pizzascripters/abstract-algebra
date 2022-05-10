@@ -80,7 +80,6 @@ impl<const N: usize> IterablePermutation<N> {
 
         if permutation_to_return == self.s {
             self.done = true;
-            return Option::None;
         }
 
         self.is_even = !self.is_even;

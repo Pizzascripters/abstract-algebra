@@ -3,6 +3,7 @@ pub mod symmetric;
 pub mod alternating;
 
 use std::ops::Index;
+use crate::action;
 use crate::action::conjugate::Conjugate;
 
 pub trait Group<G: ?Sized + Copy>: Index<usize, Output=G> {
@@ -24,16 +25,35 @@ pub trait Group<G: ?Sized + Copy>: Index<usize, Output=G> {
     }
 }
 
-fn find_conjugacy_classes<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) {
-    let action = Conjugate::new(grp);
+pub fn find_center<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) -> Vec<G> {
+    let action: Conjugate<G> = Conjugate::new(grp);
+    let mut center: Vec<G> = Vec::new();
     for i in 0..grp.order() {
-        let g = grp[i];
-    }
-
-    let v: Vec<u32> = vec!(1, 2, 3);
-    for i in 0..v.len() {
-        for j in 0..v.len() {
-
+        let orbit = action::orbit(grp, &action, grp[i]);
+        if orbit.len() == 1 {
+            center.push(grp[i]);
         }
     }
+    return center;
+}
+
+pub fn find_conjugacy_classes<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) -> Vec<Vec<G>> {
+    let action: Conjugate<G> = Conjugate::new(grp);
+    let mut classes: Vec<Vec<G>> = Vec::new();
+    for i in 0..grp.order() {
+        let g = grp[i];
+        // Skip member if already in a class
+        let mut already_in_class = false;
+        for j in 0..classes.len() {
+            if classes[j].contains(&g) {
+                already_in_class = true;
+                break;
+            }
+        }
+        if already_in_class {
+            continue;
+        }
+        classes.push(action::orbit(grp, &action, g));
+    }
+    return classes;
 }

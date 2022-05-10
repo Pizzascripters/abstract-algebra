@@ -58,7 +58,7 @@ impl<'a> Index<usize> for AbelianGroup<'a> {
     
     type Output = u32;
 
-    fn index(&self, i: usize) -> &Self::Output {
+    fn index(&self, _i: usize) -> &Self::Output {
         return &0;
     }
 }
