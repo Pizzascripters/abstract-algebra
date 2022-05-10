@@ -1,3 +1,4 @@
+pub mod format;
 pub mod permutation;
 
 pub fn arange<const N: usize>() -> [usize; N] {

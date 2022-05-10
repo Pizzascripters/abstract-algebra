@@ -5,7 +5,7 @@ pub struct Conjugate<'a, G: ?Sized + Copy> {
     group: &'a dyn Group<G>
 }
 
-impl<'a, G: ?Sized + Copy + Eq> Action<G, G> for Conjugate<'a, G> {
+impl<'a, G: ?Sized + Copy + ToString + PartialEq> Action<G, G> for Conjugate<'a, G> {
 
     fn op(&self, g: G, h: G) -> G {
         return self.group.conjugate(g, h);

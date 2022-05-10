@@ -3,7 +3,30 @@ use super::swap;
 
 // If s is a permutation then for any i in 0..N there should exist a j such that s[j] = i
 // Alternatively 0 <= s[i] < N and each s[i] is unique
-pub type Permutation<const N: usize> = [usize;N];
+pub struct Permutation<const N: usize> {
+    pub s: [usize; N]
+}
+
+impl<const N: usize> ToString for Permutation<N> {
+    fn to_string(&self) -> String {
+        return format!("({})", self.s.map(|i| i.to_string()).join(", "));
+    }
+}
+
+impl<const N: usize> PartialEq for Permutation<N> {
+    fn eq(&self, other: &Self) -> bool {
+        return self.s == other.s;
+    }
+}
+
+impl<const N: usize> Copy for Permutation<N> {}
+impl<const N: usize> Clone for Permutation<N> {
+    fn clone(&self) -> Self {
+        return Permutation {
+            s: self.s
+        }
+    }
+}
 
 pub struct IterablePermutation<const N: usize> {
     s: Permutation<N>,
@@ -30,7 +53,9 @@ impl<const N: usize> IterablePermutation<N> {
         let mut directions: [i8; N] = [-1; N];
         directions[0] = 0;
         return IterablePermutation {
-            s: arange(),
+            s: Permutation {
+                s: arange()
+            },
             directions,
             even_only,
             is_even: true,
@@ -47,7 +72,7 @@ impl<const N: usize> IterablePermutation<N> {
 
         let mut k: usize = 0; // Index of greatest nonzero element
         for i in 0..N {
-            if self.directions[i] != 0 && (self.s[i] >= self.s[k] || self.directions[k] == 0) {
+            if self.directions[i] != 0 && (self.s.s[i] >= self.s.s[k] || self.directions[k] == 0) {
                 k = i;
             }
         }
@@ -55,21 +80,21 @@ impl<const N: usize> IterablePermutation<N> {
         // Make swap
         let k_ = k;
         if self.directions[k] == 1 {
-            swap(&mut self.s, k, k+1);
+            swap(&mut self.s.s, k, k+1);
             swap(&mut self.directions, k, k+1);
             k += 1;
         } else if self.directions[k] == -1 {
-            swap(&mut self.s, k, k-1);
+            swap(&mut self.s.s, k, k-1);
             swap(&mut self.directions, k, k-1);
             k -= 1;
         }
 
-        if k == 0 || k == N-1 || self.s[2*k-k_] > self.s[k] {
+        if k == 0 || k == N-1 || self.s.s[2*k-k_] > self.s.s[k] {
             self.directions[k] = 0;
         }
 
         for i in 0..N {
-            if self.s[i] > self.s[k] {
+            if self.s.s[i] > self.s.s[k] {
                 if k < i {
                     self.directions[i] = -1;
                 } else {
@@ -89,17 +114,21 @@ impl<const N: usize> IterablePermutation<N> {
 }
 
 pub fn compose<const N: usize>(s1: Permutation<N>, s2: Permutation<N>) -> Permutation<N> {
-    let mut composition: Permutation<N> = [0;N];
+    let mut composition: Permutation<N> = Permutation {
+        s: [0; N]
+    };
     for i in 0..N {
-        composition[i] = s1[s2[i]];
+        composition.s[i] = s1.s[s2.s[i]];
     }
     return composition;
 }
 
 pub fn invert<const N: usize>(s: Permutation<N>) -> Permutation<N> {
-    let mut inverse: Permutation<N> = [0;N];
+    let mut inverse: Permutation<N> = Permutation {
+        s: [0; N]
+    };
     for i in 0..N {
-        inverse[s[i]] = i;
+        inverse.s[s.s[i]] = i;
     }
     return inverse;
 }

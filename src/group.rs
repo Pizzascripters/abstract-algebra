@@ -6,7 +6,7 @@ use std::ops::Index;
 use crate::action;
 use crate::action::conjugate::Conjugate;
 
-pub trait Group<G: ?Sized + Copy>: Index<usize, Output=G> {
+pub trait Group<G: ?Sized + Copy + ToString>: Index<usize, Output=G> {
     // Associative group operation G x G -> G
     fn op(&self, a: G, b: G) -> G;
 
@@ -23,9 +23,21 @@ pub trait Group<G: ?Sized + Copy>: Index<usize, Output=G> {
     fn conjugate(&self, h: G, g: G) -> G {
         return self.op(self.op(h, g), self.inv(h));
     }
+
+    fn to_string(&self) -> String {
+        let mut s: String = String::new();
+        let order = self.order();
+        for i in 0..order {
+            s += &self[i].to_string();
+            if i < order - 1 {
+                s += ", ";
+            }
+        }
+        return format!("[order {}] {{{}}}", order, s);
+    }
 }
 
-pub fn find_center<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) -> Vec<G> {
+pub fn find_center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<G> {
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut center: Vec<G> = Vec::new();
     for i in 0..grp.order() {
@@ -37,7 +49,7 @@ pub fn find_center<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) -> Vec<G> {
     return center;
 }
 
-pub fn find_conjugacy_classes<G: ?Sized + Copy + Eq>(grp: &dyn Group<G>) -> Vec<Vec<G>> {
+pub fn find_conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<Vec<G>> {
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut classes: Vec<Vec<G>> = Vec::new();
     for i in 0..grp.order() {

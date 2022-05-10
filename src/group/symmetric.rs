@@ -16,7 +16,9 @@ impl<'a, const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
     }
 
     fn identity(&self) -> Permutation<N> {
-        return util::arange();
+        return Permutation {
+            s: util::arange()
+        };
     }
 
     fn inv(&self, g: Permutation<N>) -> Permutation<N> {
