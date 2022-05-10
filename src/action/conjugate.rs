@@ -2,7 +2,7 @@ use crate::group::Group;
 use super::Action;
 
 pub struct Conjugate<'a, G: ?Sized + Copy> {
-    group: &'a mut dyn Group<G, Item=G>
+    group: &'a dyn Group<G>
 }
 
 impl<'a, G: ?Sized + Copy + Eq> Action<G, G> for Conjugate<'a, G> {
@@ -14,7 +14,7 @@ impl<'a, G: ?Sized + Copy + Eq> Action<G, G> for Conjugate<'a, G> {
 
 impl<'a, G: ?Sized + Copy> Conjugate<'a, G> {
 
-    pub fn new(group: &'a mut dyn Group<G, Item=G>) -> Self {
+    pub fn new(group: &'a dyn Group<G>) -> Self {
         return Conjugate {
             group
         }

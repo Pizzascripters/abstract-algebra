@@ -8,9 +8,7 @@ use group::Group;
 use group::symmetric::SymmetricGroup;
 use group::abelian::AbelianGroup;
 use group::alternating::AlternatingGroup;
-use action::Action;
 use action::conjugate::Conjugate;
-use util::permutation;
 use util::permutation::Permutation;
 
 fn main() {
@@ -29,7 +27,7 @@ fn main() {
     print!("\n\n");
 
     println!("Orbit of [3, 2, 1, 0] in S4 acting on itself under conjugation:");
-    let action: Conjugate<permutation::Permutation<4>> = Conjugate::new(&mut s4);
+    let action: Conjugate<Permutation<4>> = Conjugate::new(&mut s4);
     let orbit = action::orbit(&mut SymmetricGroup::new(), &action, [0, 3, 2, 1]);
     for s in orbit {
         print_permutation_4(s);
@@ -38,8 +36,9 @@ fn main() {
     print!("\n\n");
 }
 
-fn print_permutation_group(grp: &mut dyn Group<Permutation<4>, Item=Permutation<4>>) {
-    for g in grp {
+fn print_permutation_group(grp: &mut dyn Group<Permutation<4>>) {
+    for i in 1..grp.order() {
+        let g = grp[i];
         print_permutation_4(g);
         print!(" - ");
     }

@@ -1,10 +1,12 @@
+use std::ops::Index;
 use crate::util;
 use crate::util::permutation;
 use crate::util::permutation::Permutation;
+use crate::util::factorial;
 use super::Group;
 
 pub struct AlternatingGroup<const N: usize> {
-    iterator: permutation::IterablePermutation<N>
+    members: Vec<Permutation<N>>
 }
 
 impl<'a, const N: usize> Group<Permutation<N>> for AlternatingGroup<N> {
@@ -20,14 +22,18 @@ impl<'a, const N: usize> Group<Permutation<N>> for AlternatingGroup<N> {
     fn inv(&self, g: Permutation<N>) -> Permutation<N> {
         return permutation::invert(g);
     }
+
+    fn order(&self) -> usize {
+        return factorial(N as u32) as usize / 2;
+    }
 }
 
-impl<const N: usize> Iterator for AlternatingGroup<N> {
+impl<const N: usize> Index<usize> for AlternatingGroup<N> {
 
-    type Item = Permutation<N>;
+    type Output = Permutation<N>;
 
-    fn next(&mut self) -> Option<Permutation<N>> {
-        return self.iterator.next();
+    fn index(&self, i: usize) -> &Self::Output {
+        return &self.members[i];
     }
 }
 
@@ -36,7 +42,7 @@ impl<'a, const N: usize> AlternatingGroup<N> {
     pub fn new() -> Self {
         let iterator = permutation::IterablePermutation::new(true);
         return AlternatingGroup {
-            iterator
+            members: iterator.collect()
         }
     }
 }

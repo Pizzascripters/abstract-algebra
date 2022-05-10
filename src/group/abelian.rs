@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::ops::Index;
 
 use super::Group;
 
@@ -46,14 +47,19 @@ impl<'a> Group<u32> for AbelianGroup<'a> {
     fn inv(&self, g: u32) -> u32 {
         return g;
     }
+
+    fn order(&self) -> usize {
+        // TODO: Return product of orders of subgroups
+        return 0;
+    }
 }
 
-impl<'a> Iterator for AbelianGroup<'a> {
+impl<'a> Index<usize> for AbelianGroup<'a> {
+    
+    type Output = u32;
 
-    type Item=u32;
-
-    fn next(&mut self) -> Option<u32> {
-        return None;
+    fn index(&self, i: usize) -> &Self::Output {
+        return &0;
     }
 }
 

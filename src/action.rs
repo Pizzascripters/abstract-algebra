@@ -8,9 +8,10 @@ pub trait Action<G: ?Sized + Copy, X: Eq> {
     fn op(&self, g: G, x: X) -> X;
 }
 
-pub fn orbit<G: ?Sized + Copy, X: Eq + Copy>(grp: &mut dyn Group<G, Item=G>, action: &dyn Action<G, X>, x: X) -> Vec<X> {
+pub fn orbit<G: ?Sized + Copy, X: Eq + Copy>(grp: &dyn Group<G, Output=G>, action: &dyn Action<G, X>, x: X) -> Vec<X> {
     let mut orbit: Vec<X> = Vec::new();
-    for g in grp {
+    for i in 0..grp.order() {
+        let g = grp[i];
         let y = action.op(g, x);
         if !orbit.contains(&y) {
             orbit.push(y);
