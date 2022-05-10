@@ -1,4 +1,5 @@
 pub mod cyclic;
+pub mod dihedral;
 pub mod symmetric;
 pub mod alternating;
 
