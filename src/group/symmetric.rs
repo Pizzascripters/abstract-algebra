@@ -7,7 +7,7 @@ pub struct SymmetricGroup<const N: usize> {
     iterator: permutation::IterablePermutation<N>
 }
 
-impl<'a, const N: usize> Group<'a, Permutation<N>> for SymmetricGroup<N> {
+impl<'a, const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
 
     fn op(&self, a: Permutation<N>, b: Permutation<N>) -> Permutation<N> {
         return permutation::compose(a, b);

@@ -7,7 +7,7 @@ pub struct AlternatingGroup<const N: usize> {
     iterator: permutation::IterablePermutation<N>
 }
 
-impl<'a, const N: usize> Group<'a, Permutation<N>> for AlternatingGroup<N> {
+impl<'a, const N: usize> Group<Permutation<N>> for AlternatingGroup<N> {
 
     fn op(&self, a: Permutation<N>, b: Permutation<N>) -> Permutation<N> {
         return permutation::compose(a, b);

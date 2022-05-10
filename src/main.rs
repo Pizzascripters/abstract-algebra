@@ -21,15 +21,21 @@ fn main() {
     println!("Members of S4:");
     let mut s4: SymmetricGroup<4> = SymmetricGroup::new();
     print_permutation_group(&mut s4);
-    print!("\n");
+    print!("\n\n");
 
     println!("Members of A4:");
     let mut a4: AlternatingGroup<4> = AlternatingGroup::new();
     print_permutation_group(&mut a4);
-    print!("\n");
+    print!("\n\n");
 
+    println!("Orbit of [3, 2, 1, 0] in S4 acting on itself under conjugation:");
     let action: Conjugate<permutation::Permutation<4>> = Conjugate::new(&mut s4);
-    print_permutation_4(action.op([3, 2, 1, 0], [1, 3, 2, 0]));
+    let orbit = action::orbit(&mut SymmetricGroup::new(), &action, [0, 3, 2, 1]);
+    for s in orbit {
+        print_permutation_4(s);
+        print!(" - ");
+    }
+    print!("\n\n");
 }
 
 fn print_permutation_group(grp: &mut dyn Group<Permutation<4>, Item=Permutation<4>>) {

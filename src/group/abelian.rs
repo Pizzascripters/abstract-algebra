@@ -23,7 +23,7 @@ impl<'a> AbelianGroup<'a> {
     }
 }
 
-impl<'a> Group<'a, u32> for AbelianGroup<'a> {
+impl<'a> Group<u32> for AbelianGroup<'a> {
 
     fn op(&self, mut a: u32, mut b: u32) -> u32 {
         let mut ab = 0;
