@@ -1,10 +1,12 @@
 pub mod cyclic;
 pub mod dihedral;
+pub mod quaternion;
 pub mod symmetric;
 pub mod alternating;
 
 use crate::action;
 use crate::action::conjugate::Conjugate;
+use crate::util::format;
 
 pub trait Group<G: ?Sized + Copy + ToString> {
     // Associative group operation G x G -> G
@@ -70,4 +72,12 @@ pub fn find_conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn
         classes.push(action::orbit(grp, &action, g));
     }
     return classes;
+}
+
+pub fn format_conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
+    let classes = find_conjugacy_classes(grp);
+    return format!(
+        "{}",
+        classes.iter().map(|v| format::vec(v, ", ")).collect::<Vec<_>>().join("\n")
+    );
 }

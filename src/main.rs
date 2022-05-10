@@ -5,6 +5,7 @@ mod util;
 use group::Group;
 use group::cyclic::CyclicGroup;
 use group::dihedral::DihedralGroup;
+use group::quaternion::QuaternionGroup;
 use group::symmetric::SymmetricGroup;
 use group::alternating::AlternatingGroup;
 use action::conjugate::Conjugate;
@@ -14,6 +15,7 @@ use util::format;
 fn main() {
     let z9 = CyclicGroup::new(9);
     let d6 = DihedralGroup::new(6);
+    let q8 = QuaternionGroup::new();
     let s4: SymmetricGroup<4> = SymmetricGroup::new();
     let a4: AlternatingGroup<4> = AlternatingGroup::new();
     let a5: AlternatingGroup<5> = AlternatingGroup::new();
@@ -33,9 +35,6 @@ fn main() {
         format::vec(&group::find_center(&d6), ", ")
     );
 
-    let classes = group::find_conjugacy_classes(&a5);
-    println!(
-        "Conjugacy classes of A5:\n{}",
-        classes.iter().map(|v| format::vec(v, ", ")).collect::<Vec<_>>().join("\n")
-    );
+    println!("Conjugacy classes of A5:\n{}\n", group::format_conjugacy_classes(&a5));
+    println!("Conjugacy classes of Q8:\n{}\n", group::format_conjugacy_classes(&q8));
 }
