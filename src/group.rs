@@ -1,12 +1,11 @@
-pub mod abelian;
+pub mod cyclic;
 pub mod symmetric;
 pub mod alternating;
 
-use std::ops::Index;
 use crate::action;
 use crate::action::conjugate::Conjugate;
 
-pub trait Group<G: ?Sized + Copy + ToString>: Index<usize, Output=G> {
+pub trait Group<G: ?Sized + Copy + ToString> {
     // Associative group operation G x G -> G
     fn op(&self, a: G, b: G) -> G;
 
@@ -19,6 +18,8 @@ pub trait Group<G: ?Sized + Copy + ToString>: Index<usize, Output=G> {
     // Number of members in group
     fn order(&self) -> usize;
 
+    fn index(&self, i: usize) -> G;
+
     // conjugate(g, h) = hgh^(-1)
     fn conjugate(&self, h: G, g: G) -> G {
         return self.op(self.op(h, g), self.inv(h));
@@ -28,7 +29,7 @@ pub trait Group<G: ?Sized + Copy + ToString>: Index<usize, Output=G> {
         let mut s: String = String::new();
         let order = self.order();
         for i in 0..order {
-            s += &self[i].to_string();
+            s += &self.index(i).to_string();
             if i < order - 1 {
                 s += ", ";
             }
@@ -41,9 +42,9 @@ pub fn find_center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) 
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut center: Vec<G> = Vec::new();
     for i in 0..grp.order() {
-        let orbit = action::orbit(grp, &action, grp[i]);
+        let orbit = action::orbit(grp, &action, grp.index(i));
         if orbit.len() == 1 {
-            center.push(grp[i]);
+            center.push(grp.index(i));
         }
     }
     return center;
@@ -53,7 +54,7 @@ pub fn find_conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut classes: Vec<Vec<G>> = Vec::new();
     for i in 0..grp.order() {
-        let g = grp[i];
+        let g = grp.index(i);
         // Skip member if already in a class
         let mut already_in_class = false;
         for j in 0..classes.len() {

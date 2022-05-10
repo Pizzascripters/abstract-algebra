@@ -8,10 +8,10 @@ pub trait Action<G: ?Sized + Copy, X: PartialEq> {
     fn op(&self, g: G, x: X) -> X;
 }
 
-pub fn orbit<G: ?Sized + Copy + ToString, X: PartialEq + Copy>(grp: &dyn Group<G, Output=G>, action: &dyn Action<G, X>, x: X) -> Vec<X> {
+pub fn orbit<G: ?Sized + Copy + ToString, X: PartialEq + Copy>(grp: &dyn Group<G>, action: &dyn Action<G, X>, x: X) -> Vec<X> {
     let mut orbit: Vec<X> = Vec::new();
     for i in 0..grp.order() {
-        let g = grp[i];
+        let g = grp.index(i);
         let y = action.op(g, x);
         if !orbit.contains(&y) {
             orbit.push(y);

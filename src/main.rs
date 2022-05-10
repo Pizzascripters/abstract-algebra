@@ -3,6 +3,7 @@ mod action;
 mod util;
 
 use group::Group;
+use group::cyclic::CyclicGroup;
 use group::symmetric::SymmetricGroup;
 use group::alternating::AlternatingGroup;
 use action::conjugate::Conjugate;
@@ -10,11 +11,12 @@ use util::permutation::Permutation;
 use util::format;
 
 fn main() {
+    let z9 = CyclicGroup::new(9);
     let s4: SymmetricGroup<4> = SymmetricGroup::new();
     let a4: AlternatingGroup<4> = AlternatingGroup::new();
     let a5: SymmetricGroup<5> = SymmetricGroup::new();
 
-    println!("Members of S4:\n{}\n", s4.to_string());
+    println!("Members of Z9:\n{}\n", z9.to_string());
     println!("Members of A4:\n{}\n", a4.to_string());
 
     let conjugacy_action: Conjugate<Permutation<4>> = Conjugate::new(&s4);

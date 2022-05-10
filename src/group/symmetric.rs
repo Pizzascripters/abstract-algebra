@@ -1,4 +1,3 @@
-use std::ops::Index;
 use crate::util;
 use crate::util::permutation;
 use crate::util::permutation::Permutation;
@@ -28,14 +27,9 @@ impl<'a, const N: usize> Group<Permutation<N>> for SymmetricGroup<N> {
     fn order(&self) -> usize {
         return factorial(N as u32) as usize;
     }
-}
 
-impl<const N: usize> Index<usize> for SymmetricGroup<N> {
-
-    type Output = Permutation<N>;
-
-    fn index(&self, i: usize) -> &Self::Output {
-        return &self.members[i];
+    fn index(&self, i: usize) -> Permutation<N> {
+        return self.members[i];
     }
 }
 
