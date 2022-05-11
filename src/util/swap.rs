@@ -1,6 +1,6 @@
-pub fn swap<T: Copy, const N: usize>(a: &mut [T; N], i: usize, j: usize) -> &[T; N] {
+pub fn swap<T: Copy>(a: &mut Vec<T>, i: usize, j: usize) -> &mut Vec<T> {
     let temp = a[i];
     a[i] = a[j];
     a[j] = temp;
-    return a;
+    a
 }

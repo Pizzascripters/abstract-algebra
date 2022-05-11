@@ -10,11 +10,11 @@ pub fn vec<T: ToString>(v: &Vec<T>, delim: &str) -> String {
     );
 }
 
-pub fn center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
+pub fn center<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
     return vec(&group::find_center(grp), ", ");
 }
 
-pub fn conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
+pub fn conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
     let classes = group::find_conjugacy_classes(grp);
     return classes.iter().map(|v| vec(v, ", ")).collect::<Vec<_>>().join("\n");
 }

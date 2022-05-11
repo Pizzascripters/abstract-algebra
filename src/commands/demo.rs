@@ -6,8 +6,8 @@ pub fn demo() {
     let z9 = group::CyclicGroup::new(9);
     let d6 = group::DihedralGroup::new(6);
     let q8 = group::QuaternionGroup::new();
-    let s4: group::SymmetricGroup<4> = group::SymmetricGroup::new();
-    let a5: group::AlternatingGroup<5> = group::AlternatingGroup::new();
+    let s4: group::SymmetricGroup = group::SymmetricGroup::new(4);
+    let a5: group::AlternatingGroup = group::AlternatingGroup::new(5);
 
     println!("Members of Z9:\n{}\n", z9.to_string());
     println!("Members of S4:\n{}\n", s4.to_string());

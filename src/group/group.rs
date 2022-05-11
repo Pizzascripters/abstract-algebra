@@ -1,7 +1,7 @@
 use crate::action;
 use crate::action::Conjugate;
 
-pub trait Group<G: ?Sized + Copy + ToString> {
+pub trait Group<G: Clone + ToString> {
     // Associative group operation G x G -> G
     fn op(&self, a: G, b: G) -> G;
 
@@ -18,7 +18,7 @@ pub trait Group<G: ?Sized + Copy + ToString> {
 
     // conjugate(g, h) = hgh^(-1)
     fn conjugate(&self, h: G, g: G) -> G {
-        return self.op(self.op(h, g), self.inv(h));
+        return self.op(self.op(h.clone(), g), self.inv(h.clone()));
     }
 
     fn to_string(&self) -> String {
@@ -34,7 +34,7 @@ pub trait Group<G: ?Sized + Copy + ToString> {
     }
 }
 
-pub fn find_center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<G> {
+pub fn find_center<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<G> {
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut center: Vec<G> = Vec::new();
     for i in 0..grp.order() {
@@ -46,7 +46,7 @@ pub fn find_center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) 
     return center;
 }
 
-pub fn find_conjugacy_classes<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<Vec<G>> {
+pub fn find_conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> Vec<Vec<G>> {
     let action: Conjugate<G> = Conjugate::new(grp);
     let mut classes: Vec<Vec<G>> = Vec::new();
     for i in 0..grp.order() {

@@ -1,7 +1,7 @@
-pub fn arange<const N: usize>() -> [usize; N] {
-    let mut a: [usize; N] = [0; N];
-    for i in 0..N {
+pub fn arange(length: usize) -> Vec<usize> {
+    let mut a: Vec<usize> = vec!(0; length);
+    for i in 0..length {
         a[i] = i;
     }
-    return a;
+    a
 }
