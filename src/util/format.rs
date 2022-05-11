@@ -10,6 +10,10 @@ pub fn vec<T: ToString>(v: &Vec<T>, delim: &str) -> String {
     );
 }
 
+pub fn members<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
+    return grp.to_string();
+}
+
 pub fn center<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
     return vec(&group::find_center(grp), ", ");
 }
