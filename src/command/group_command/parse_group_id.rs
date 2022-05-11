@@ -50,4 +50,5 @@ pub(crate) use parse_group_id;
 
 pub fn invalid_group(group_id: &String) {
     println!("Invalid group id {}!", *group_id);
+    println!("Valid group ids are A<n>, D<n>, Q8, S<n>, and Z<n>");
 }
