@@ -1,35 +1,10 @@
-mod group;
 mod action;
+mod commands;
+mod group;
 mod util;
 
-use group::Group;
-use group::cyclic::CyclicGroup;
-use group::dihedral::DihedralGroup;
-use group::quaternion::QuaternionGroup;
-use group::symmetric::SymmetricGroup;
-use group::alternating::AlternatingGroup;
-use util::args;
-use util::args::Mode;
-use util::format;
+use std::env;
 
 fn main() {
-    let mode = args::parse();
-    match mode {
-        Mode::Help(command) => args::help(command),
-        Mode::Demo => demo(),
-    }
-}
-
-fn demo() {
-    let z9 = CyclicGroup::new(9);
-    let d6 = DihedralGroup::new(6);
-    let q8 = QuaternionGroup::new();
-    let s4: SymmetricGroup<4> = SymmetricGroup::new();
-    let a5: AlternatingGroup<5> = AlternatingGroup::new();
-
-    println!("Members of Z9:\n{}\n", z9.to_string());
-    println!("Members of S4:\n{}\n", s4.to_string());
-    println!("Center of D6:\n{}\n", format::center(&d6));
-    println!("Conjugacy classes of A5:\n{}\n", format::conjugacy_classes(&a5));
-    println!("Conjugacy classes of Q8:\n{}\n", format::conjugacy_classes(&q8));
+    commands::parse(env::args().collect());
 }

@@ -1,8 +1,6 @@
-use std::env;
 use std::cmp::max;
 
-// For printing usage
-const COMMANDS: [Command; 2] = [
+const COMMANDS: [Command; 3] = [
     Command {
         name: "demo",
         syntax: "",
@@ -12,29 +10,18 @@ const COMMANDS: [Command; 2] = [
         name: "help",
         syntax: "help [command]",
         description: ""
-    }
+    },
+    Command {
+        name: "members",
+        syntax: "members <group>",
+        description: "Lists all the members of a group"
+    },
 ];
 
 struct Command {
     name: &'static str,
     syntax: &'static str,
     description: &'static str
-}
-
-pub enum Mode {
-    Help(Option<String>),
-    Demo
-}
-
-pub fn parse() -> Mode {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 { return Mode::Help(None) };
-    let primary_arg = args[1].as_str();
-    match primary_arg {
-        "demo" => Mode::Demo,
-        "help" => Mode::Help(None),
-        _ => Mode::Help(Some(primary_arg.to_string()))
-    }
 }
 
 pub fn help(command: Option<String>) {
