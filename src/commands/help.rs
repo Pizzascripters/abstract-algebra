@@ -36,3 +36,12 @@ pub fn help(command: Option<String>) {
         println!("   {:name$}   {:syntax$}   {}", command.name, command.syntax, command.description, name=max_name, syntax=max_syntax);
     }
 }
+
+pub fn bad_usage(command_name: String) {
+    println!("Bad usage of {}!", command_name);
+    for command in COMMANDS {
+        if command.name == command_name {
+            println!("Usage: {}", command.syntax);
+        }
+    }
+}

@@ -15,7 +15,11 @@ fn main() {
     match primary_arg {
         "demo" => commands::demo(),
         "help" => commands::help(None),
-        "members" => if args.len() < 3 {} else {commands::members(args[2].to_string())},
+        "members" => if args.len() < 3 {
+            commands::bad_usage(primary_arg.to_string())
+        } else {
+            commands::members(args[2].to_string())
+        },
         _ => commands::help(Some(primary_arg.to_string()))
     }
 }
