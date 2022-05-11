@@ -8,9 +8,19 @@ use group::dihedral::DihedralGroup;
 use group::quaternion::QuaternionGroup;
 use group::symmetric::SymmetricGroup;
 use group::alternating::AlternatingGroup;
+use util::args;
+use util::args::Mode;
 use util::format;
 
 fn main() {
+    let mode = args::parse();
+    match mode {
+        Mode::Help(command) => args::help(command),
+        Mode::Demo => demo(),
+    }
+}
+
+fn demo() {
     let z9 = CyclicGroup::new(9);
     let d6 = DihedralGroup::new(6);
     let q8 = QuaternionGroup::new();
