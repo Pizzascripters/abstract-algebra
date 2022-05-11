@@ -1,6 +1,16 @@
 use std::cmp::max;
 
-const COMMANDS: [Command; 3] = [
+const COMMANDS: [Command; 5] = [
+    Command {
+        name: "cc",
+        syntax: "cc <group>",
+        description: "Lists the conjugacy classes of a group"
+    },
+    Command {
+        name: "center",
+        syntax: "center <group>",
+        description: "Lists the set of members g that satisfy gh = hg for all other group members h"
+    },
     Command {
         name: "demo",
         syntax: "",

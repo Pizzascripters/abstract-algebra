@@ -1,3 +1,9 @@
+mod center;
+pub use center::center;
+
+mod conjugacy_classes;
+pub use conjugacy_classes::conjugacy_classes;
+
 mod demo;
 pub use demo::demo;
 
