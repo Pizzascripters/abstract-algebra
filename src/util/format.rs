@@ -1,4 +1,5 @@
 use crate::group;
+use group::Group;
 
 pub fn vec<T: ToString>(v: &Vec<T>, delim: &str) -> String {
     return format!(
@@ -9,7 +10,7 @@ pub fn vec<T: ToString>(v: &Vec<T>, delim: &str) -> String {
     );
 }
 
-pub fn center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
+pub fn center<G: ?Sized + Copy + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
     return vec(&group::find_center(grp), ", ");
 }
 

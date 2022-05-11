@@ -1,6 +1,7 @@
 use crate::util;
 use crate::util::permutation;
-use crate::util::permutation::Permutation;
+use permutation::Permutation;
+use permutation::IterablePermutation;
 use crate::util::factorial;
 use super::Group;
 
@@ -36,7 +37,7 @@ impl<'a, const N: usize> Group<Permutation<N>> for AlternatingGroup<N> {
 impl<'a, const N: usize> AlternatingGroup<N> {
     
     pub fn new() -> Self {
-        let iterator = permutation::IterablePermutation::new(true);
+        let iterator = IterablePermutation::new(true);
         return AlternatingGroup {
             members: iterator.collect()
         }

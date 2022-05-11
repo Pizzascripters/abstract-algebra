@@ -1,11 +1,5 @@
-pub mod cyclic;
-pub mod dihedral;
-pub mod quaternion;
-pub mod symmetric;
-pub mod alternating;
-
 use crate::action;
-use crate::action::conjugate::Conjugate;
+use crate::action::Conjugate;
 
 pub trait Group<G: ?Sized + Copy + ToString> {
     // Associative group operation G x G -> G

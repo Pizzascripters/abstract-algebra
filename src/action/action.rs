@@ -1,5 +1,3 @@
-pub mod conjugate;
-
 use crate::group::Group;
 
 // X acts on some Group<G>
