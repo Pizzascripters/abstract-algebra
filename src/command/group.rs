@@ -71,7 +71,7 @@ pub fn center(group_id: String) {
     parse_group_id!(&group_id, format_center);
 }
 
-fn format_members<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
+fn format_members<G: Clone + ToString + PartialEq>(grp: &impl group::Group<G>) -> String {
     format!(
         "Elements of {}:\n{}\n\n",
         grp.get_name(),
@@ -79,7 +79,7 @@ fn format_members<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) ->
     )
 }
 
-fn format_conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
+fn format_conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &impl group::Group<G>) -> String {
     let classes = group::find_conjugacy_classes(grp);
     format!(
         "Conjugacy classes of {}:\n{}\n\n",
@@ -88,7 +88,7 @@ fn format_conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &dyn group::Gr
     )
 }
 
-fn format_center<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
+fn format_center<G: Clone + ToString + PartialEq>(grp: &impl group::Group<G>) -> String {
     format!(
         "Center of {}:\n{}\n\n",
         grp.get_name(),

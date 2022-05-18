@@ -12,9 +12,9 @@ impl<'a, G: Clone + ToString + PartialEq> Action<G, G> for Conjugate<'a, G> {
     }
 }
 
-impl<'a, G> Conjugate<'a, G> {
+impl<'a, G: Clone + ToString> Conjugate<'a, G> {
 
-    pub fn new(group: &'a dyn Group<G>) -> Self {
+    pub fn new(group: &'a impl Group<G>) -> Self {
         return Conjugate {
             group
         }

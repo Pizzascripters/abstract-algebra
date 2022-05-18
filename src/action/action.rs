@@ -6,7 +6,7 @@ pub trait Action<G, X: PartialEq> {
     fn op(&self, g: G, x: X) -> X;
 }
 
-pub fn orbit<G: Clone + ToString, X: Clone + PartialEq>(grp: &dyn Group<G>, action: &dyn Action<G, X>, x: X) -> Vec<X> {
+pub fn orbit<G: Clone + ToString, X: Clone + PartialEq>(grp: &impl Group<G>, action: &impl Action<G, X>, x: X) -> Vec<X> {
     let mut orbit: Vec<X> = Vec::new();
     for i in 0..grp.order() {
         let g = grp.index(i);
