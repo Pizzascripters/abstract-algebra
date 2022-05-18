@@ -32,7 +32,7 @@ pub trait Group<G: Clone + ToString> {
                 s += ", ";
             }
         }
-        return format!("Elements of {}:\n[order {}] {{{}}}", self.get_name(), order, s);
+        return format!("[order {}] {{{}}}", self.get_name(), order);
     }
 }
 
