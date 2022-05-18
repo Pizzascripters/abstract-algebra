@@ -29,9 +29,4 @@ pub fn get_context() -> Context {
         .subcommand(demo::demo())
         .subcommand(group::group());
     Context::from(cmd.get_matches())
-    // match cmd.get_matches().subcommand() {
-    //     Some(("demo", _)) => Context::Demo,
-    //     Some(("group", _)) => Context::Group(),
-    //     _ => panic!("No subcommand specified. Use abstract-algebra --help for a list of subcommands.")
-    // }
 }
