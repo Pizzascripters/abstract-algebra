@@ -16,6 +16,8 @@ pub trait Group<G: Clone + ToString> {
 
     fn index(&self, i: usize) -> G;
 
+    fn get_name(&self) -> String;
+
     // conjugate(g, h) = hgh^(-1)
     fn conjugate(&self, h: G, g: G) -> G {
         return self.op(self.op(h.clone(), g), self.inv(h.clone()));
@@ -30,7 +32,7 @@ pub trait Group<G: Clone + ToString> {
                 s += ", ";
             }
         }
-        return format!("[order {}] {{{}}}", order, s);
+        return format!("Elements of {}:\n[order {}] {{{}}}", self.get_name(), order, s);
     }
 }
 

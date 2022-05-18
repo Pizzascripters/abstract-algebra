@@ -11,14 +11,22 @@ pub fn vec<T: ToString>(v: &Vec<T>, delim: &str) -> String {
 }
 
 pub fn members<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
-    return grp.to_string();
+    grp.to_string()
 }
 
 pub fn center<G: Clone + ToString + PartialEq>(grp: &dyn Group<G>) -> String {
-    return vec(&group::find_center(grp), ", ");
+    format!(
+        "Center of {}:\n{}",
+        grp.get_name(),
+        vec(&group::find_center(grp), ", ")
+    )
 }
 
 pub fn conjugacy_classes<G: Clone + ToString + PartialEq>(grp: &dyn group::Group<G>) -> String {
     let classes = group::find_conjugacy_classes(grp);
-    return classes.iter().map(|v| vec(v, ", ")).collect::<Vec<_>>().join("\n");
+    format!(
+        "Conjugacy classes of {}:\n{}",
+        grp.get_name(),
+        classes.iter().map(|v| vec(v, ", ")).collect::<Vec<_>>().join("\n")
+    )
 }

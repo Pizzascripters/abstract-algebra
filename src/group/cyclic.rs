@@ -25,6 +25,10 @@ impl Group<usize> for CyclicGroup {
     fn index(&self, i: usize) -> usize {
         return i;
     }
+
+    fn get_name(&self) -> String {
+        format!("Z{}", self.order)
+    }
 }
 
 impl CyclicGroup {

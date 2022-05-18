@@ -34,6 +34,10 @@ impl<'a> Group<Permutation> for SymmetricGroup {
     fn index(&self, i: usize) -> Permutation {
         self.members[i].clone()
     }
+
+    fn get_name(&self) -> String {
+        format!("S{}", self.length)
+    }
 }
 
 impl SymmetricGroup {

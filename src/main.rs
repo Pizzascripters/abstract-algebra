@@ -18,8 +18,14 @@ fn main() {
             if group_context.elements {
                 command::members(group_context.id.to_owned())
             }
+            if group_context.elements && (group_context.conjugacy_classes || group_context.center) {
+                println!("");
+            }
             if group_context.conjugacy_classes {
                 command::conjugacy_classes(group_context.id.to_owned())
+            }
+            if group_context.conjugacy_classes && group_context.center {
+                println!("");
             }
             if group_context.center {
                 command::center(group_context.id.to_owned())

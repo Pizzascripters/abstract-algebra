@@ -9,9 +9,9 @@ pub fn demo() {
     let s4: group::SymmetricGroup = group::SymmetricGroup::new(4);
     let a5: group::AlternatingGroup = group::AlternatingGroup::new(5);
 
-    println!("Members of Z9:\n{}\n", z9.to_string());
-    println!("Members of S4:\n{}\n", s4.to_string());
-    println!("Center of D6:\n{}\n", format::center(&d6));
-    println!("Conjugacy classes of A5:\n{}\n", format::conjugacy_classes(&a5));
-    println!("Conjugacy classes of Q8:\n{}\n", format::conjugacy_classes(&q8));
+    println!("abstract-algebra group Z9 --elements\n{}", z9.to_string());
+    println!("abstract-algebra group S4 -e\n{}", s4.to_string());
+    println!("abstract-algebra group D6 --center\n{}", format::center(&d6));
+    println!("abstract-algebra group A5 --conjugacy-classes\n{}", format::conjugacy_classes(&a5));
+    print!("abstract-algebra group Q8 -c\n{}", format::conjugacy_classes(&q8));
 }

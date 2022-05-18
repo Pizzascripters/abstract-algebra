@@ -72,6 +72,10 @@ impl Group<DihedralMember> for DihedralGroup {
             s: i >= self.half_order
         };
     }
+
+    fn get_name(&self) -> String {
+        format!("D{}", self.half_order)
+    }
 }
 
 impl DihedralGroup {

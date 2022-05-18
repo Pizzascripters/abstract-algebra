@@ -116,6 +116,10 @@ impl Group<Quaternion> for QuaternionGroup {
     fn index(&self, i: usize) -> Quaternion {
         return QUATERNIONS[i];
     }
+
+    fn get_name(&self) -> String {
+        "Q8".to_owned()
+    }
 }
 
 impl QuaternionGroup {
